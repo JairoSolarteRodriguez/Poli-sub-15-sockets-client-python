@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat Bidireccional</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section id="loginView" class="login-view">
+      <div class="login-card">
+        <h1>Chat Bidireccional</h1>
+        <p>Ingresa los datos de conexión al servidor WebSocket.</p>
+
+        <input
+          id="serverIp"
+          type="text"
+          placeholder="IP del servidor: 127.0.0.1"
+          value="127.0.0.1"
+        />
+
+        <input
+          id="serverPort"
+          type="number"
+          placeholder="Puerto: 8765"
+          value="8765"
+        />
+
+        <input
+          id="username"
+          type="text"
+          placeholder="Nombre de usuario"
+          autocomplete="off"
+        />
+
+        <button onclick="login()">Conectar</button>
+
+        <small id="serverPreview">Servidor: ws://127.0.0.1:8765</small>
+      </div>
+    </section>
+
+    <main id="appView" class="app hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon"></div>
+          <h2>Chat<br />Bidireccional</h2>
+        </div>
+
+        <div class="profile">
+          <div class="avatar" id="profileAvatar">UP</div>
+          <div>
+            <strong id="currentUser">Usuario</strong>
+            <span class="online">En línea</span>
+          </div>
+        </div>
+
+        <div class="menu">
+          <p>CHATS</p>
+
+          <button
+            id="generalBtn"
+            class="menu-item active"
+            onclick="goToGeneral()"
+          >
+            <span>Chat General</span>
+            <b id="generalCounter">0</b>
+          </button>
+
+          <button class="menu-item">
+            <span>Chats Privados</span>
+            <b id="privateCounter"></b>
+          </button>
+        </div>
+
+        <div class="connected-sidebar">
+          <p>USUARIOS CONECTADOS <span id="sidebarCount">(0)</span></p>
+          <div id="sidebarUsers"></div>
+        </div>
+
+        <button class="logout" onclick="logout()">↪ Cerrar sesión</button>
+      </aside>
+
+      <section class="content">
+        <header class="chat-header">
+          <div class="room-icon" id="roomIcon"></div>
+          <div>
+            <h1 id="roomTitle">Chat General</h1>
+            <p id="roomSubtitle">
+              Conversación pública para todos los usuarios conectados
+            </p>
+          </div>
+
+          <div class="users-pill">
+            <span id="usersCount">0 usuarios</span>
+          </div>
+        </header>
+
+        <section class="main-grid">
+          <section class="chat-panel">
+            <div id="messages" class="messages"></div>
+
+            <div class="input-area">
+              <input
+                id="messageInput"
+                type="text"
+                placeholder="Escribe un mensaje..."
+                onkeydown="handleEnter(event)"
+              />
+              <button onclick="sendMessage()">➤</button>
+            </div>
+          </section>
+
+          <aside class="users-panel">
+            <h3>Usuarios conectados</h3>
+            <p>Selecciona un usuario para iniciar un chat privado</p>
+            <div id="usersList"></div>
+          </aside>
+        </section>
+
+        <button
+          id="backToGeneralBtn"
+          class="back-general hidden"
+          onclick="goToGeneral()"
+        >
+          ← Volver al chat general
+        </button>
+
+        <footer>
+          Chat Bidireccional · Conectado al servidor <span>●</span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
